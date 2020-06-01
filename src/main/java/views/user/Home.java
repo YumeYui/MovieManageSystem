@@ -44,6 +44,7 @@ public class Home extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("个人主页");
 
         jLabel1.setText("名称：");
 
@@ -65,6 +66,7 @@ public class Home extends javax.swing.JFrame {
         });
 
         jButton2.setText("修改密码");
+        jButton2.setToolTipText("");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -158,6 +160,7 @@ public class Home extends javax.swing.JFrame {
             this.jLabel8.setText("<html>" + Global.user.getAddress());
         }
     }
+    
     /**
      * @param args the command line arguments
      */

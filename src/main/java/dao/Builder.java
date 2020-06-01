@@ -8,7 +8,7 @@ package dao;
 import common.ReflectClass;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
@@ -43,7 +43,7 @@ public abstract class Builder<T> {
      * @return Builder
      */
     public Builder where(String column, String operator, Object value) {
-        String castValue = value instanceof String ? "'" + value + "'" : "" + value;
+        String castValue = ((value instanceof String || value instanceof Date) || value instanceof Date) ? "'" + value + "'" : "" + value;
         
         String whereString = column + " " + operator + " " + castValue;
         
@@ -64,7 +64,7 @@ public abstract class Builder<T> {
      * @return Builder
      */
     public Builder orWhere(String column, String operator, Object value) {
-        String castValue = value instanceof String ? "'" + value + "'" : "" + value;
+        String castValue = (value instanceof String || value instanceof Date) ? "'" + value + "'" : "" + value;
         
         String whereString = "or " + column + " " + operator + " " + castValue;
         this.whereArray.add(whereString);
@@ -117,7 +117,7 @@ public abstract class Builder<T> {
                 Object value = method.invoke(this);
 
                 if (value != null) {
-                    String castValue = value instanceof String ? "'" + value + "'" : "" + value;
+                    String castValue = (value instanceof String || value instanceof Date) ? "'" + value + "'" : "" + value;
                     columns.add(name);
                     values.add(castValue);
                 }
@@ -159,7 +159,7 @@ public abstract class Builder<T> {
                 Object value = method.invoke(this);
 
                 if (value != null) {
-                    String castValue = value instanceof String ? "'" + value + "'" : "" + value;
+                    String castValue = (value instanceof String || value instanceof Date) ? "'" + value + "'" : "" + value;
                     sets.add(name + " = " + castValue);
                 }
             }

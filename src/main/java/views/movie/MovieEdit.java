@@ -8,10 +8,6 @@ package views.movie;
 import common.Validator;
 import dao.MovieDao;
 import java.math.BigDecimal;
-import javax.swing.InputVerifier;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
 
 /**
  *
@@ -72,6 +68,7 @@ public class MovieEdit extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("电影编辑");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);

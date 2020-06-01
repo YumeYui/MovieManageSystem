@@ -99,7 +99,7 @@ public class Database {
             "`type` varchar(255) NOT NULL COMMENT '类型'," +
             "`price` decimal(9,2) NOT NULL COMMENT '电影票价'," +
             "PRIMARY KEY (`id`)" +
-        ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        ") DEFAULT CHARSET=utf8;";
     }
 
     private String createPermissionsTableString () {
@@ -107,7 +107,7 @@ public class Database {
             "`id` int(11) unsigned NOT NULL AUTO_INCREMENT," +
             "`name` varchar(255) NOT NULL UNIQUE COMMENT '权限名'," +
             "PRIMARY KEY (`id`)" +
-        ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        ") DEFAULT CHARSET=utf8;";
     }
 
     private String createRolePermissionsTableString () {
@@ -116,7 +116,7 @@ public class Database {
             "`role_id` int(11) unsigned NOT NULL COMMENT '角色 id'," +
             "`permission_id` int(10) unsigned NOT NULL COMMENT '权限 id'," +
             "PRIMARY KEY (`id`)" +
-        ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        ") DEFAULT CHARSET=utf8;";
     }
 
     private String createRolesTableString () {
@@ -124,7 +124,7 @@ public class Database {
             "`id` int(11) unsigned NOT NULL AUTO_INCREMENT," +
             "`name` varchar(255) NOT NULL UNIQUE COMMENT '角色名'," +
             "PRIMARY KEY (`id`)" +
-        ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        ") DEFAULT CHARSET=utf8;";
     }
 
     private String createRoomsTableString () {
@@ -132,8 +132,10 @@ public class Database {
             "`id` int(11) unsigned NOT NULL AUTO_INCREMENT," +
             "`name` varchar(255) NOT NULL UNIQUE COMMENT '放映厅名字'," +
             "`seats` int(11) unsigned NOT NULL COMMENT '座位数'," +
+            "`rows` int(11) unsigned NOT NULL COMMENT '行数'," +
+            "`columns` int(11) unsigned NOT NULL COMMENT '列数'," +
             "PRIMARY KEY (`id`)" +
-        ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        ") DEFAULT CHARSET=utf8;";
     }
 
     private String createShowingsTableString () {
@@ -143,7 +145,7 @@ public class Database {
             "`room_id` int(11) unsigned NOT NULL COMMENT '放映厅 id'," +
             "`movie_id` int(11) unsigned NOT NULL COMMENT '电影 id'," +
             "PRIMARY KEY (`id`)" +
-        ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        ") DEFAULT CHARSET=utf8;";
     }
 
     private String createUserRolesTableString () {
@@ -152,7 +154,7 @@ public class Database {
             "`user_id` int(11) unsigned NOT NULL COMMENT '用户 id'," +
             "`role_id` int(11) unsigned NOT NULL COMMENT '角色 id'," +
             "PRIMARY KEY (`id`)" +
-        ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        ") DEFAULT CHARSET=utf8;";
     }
 
     private String createUsersTableString () {
@@ -165,6 +167,6 @@ public class Database {
             "`phone` varchar(255) NOT NULL UNIQUE COMMENT '联系方式'," +
             "`address` varchar(255) NOT NULL DEFAULT '' COMMENT '地址'," +
             "PRIMARY KEY (`id`)" +
-        ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        ") DEFAULT CHARSET=utf8;";
     }
 }

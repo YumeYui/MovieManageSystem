@@ -43,6 +43,7 @@ public class ChangePassword extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("修改密码");
 
         jLabel1.setText("旧密码：");
 

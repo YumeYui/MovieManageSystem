@@ -20,9 +20,15 @@ public class RoomDao extends Dao<RoomDao> {
     @Column(type = "String")
     private String name;
     
-    @Column(type = "int")
-    private int seats;
+    @Column(type = "Number")
+    private Number seats;
     
+    @Column(type = "Number")
+    private Number rows;
+    
+    @Column(type = "Number")
+    private Number columns;
+
     public RoomDao () {
         super(table);
     }
@@ -43,11 +49,27 @@ public class RoomDao extends Dao<RoomDao> {
         this.name = name;
     }
 
-    public int getSeats() {
+    public Number getSeats() {
         return seats;
     }
 
-    public void setSeats(int seats) {
+    public void setSeats(Number seats) {
         this.seats = seats;
+    }
+    
+    public Number getRows() {
+        return rows;
+    }
+
+    public void setRows(Number rows) {
+        this.rows = rows;
+    }
+
+    public Number getColumns() {
+        return columns;
+    }
+
+    public void setColumns(Number columns) {
+        this.columns = columns;
     }
 }

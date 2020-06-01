@@ -6,6 +6,7 @@
 package dao;
 
 import annotations.Column;
+import java.sql.Timestamp;
 
 /**
  *
@@ -23,8 +24,8 @@ public class ShowingDao extends Dao<ShowingDao> {
     @Column(type = "Number")
     private Number movie_id;
     
-    @Column(type = "String")
-    private String date;
+    @Column(type = "Timestamp")
+    private Timestamp date;
     
     public ShowingDao () {
         super(table);
@@ -54,11 +55,11 @@ public class ShowingDao extends Dao<ShowingDao> {
         this.movie_id = movie_id;
     }
 
-    public String getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 }

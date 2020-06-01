@@ -62,19 +62,19 @@ public class MovieList extends javax.swing.JFrame {
         }
 
         if (name.length() > 0) {
-            movieDao.where("name", "like", "%" + name);
+            movieDao.where("name", "like", "%" + name + "%");
         }
 
         if (director.length() > 0) {
-            movieDao.where("director", "like", "%" + director);
+            movieDao.where("director", "like", "%" + director + "%");
         }
 
         if (starring.length() > 0) {
-            movieDao.where("starring", "like", "%" + starring);
+            movieDao.where("starring", "like", "%" + starring + "%");
         }
 
         if (type.length() > 0) {
-            movieDao.where("type", "like", "%" + type);
+            movieDao.where("type", "like", "%" + type + "%");
         }
 
         this.movies = movieDao.get();
@@ -87,7 +87,8 @@ public class MovieList extends javax.swing.JFrame {
                 movie.getStarring(),
                 movie.getCover(),
                 movie.getType(),
-                movie.getPrice().floatValue(),};
+                movie.getPrice().floatValue()
+            };
             this.tableModel.addRow(row);
         }
     }
@@ -120,6 +121,7 @@ public class MovieList extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("电影列表");
 
         jLabel1.setText("ID：");
 
@@ -214,11 +216,12 @@ public class MovieList extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel5)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -285,6 +288,8 @@ public class MovieList extends javax.swing.JFrame {
             } else {
                 this.jLabel6.setText("数据删除失败");
             }
+        } else {
+            this.jLabel6.setText("请先选择要删除的数据");
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
