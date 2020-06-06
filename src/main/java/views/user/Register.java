@@ -258,7 +258,7 @@ public class Register extends javax.swing.JFrame {
         user.setName(name);
         user.setEmail(email);
         user.setPassword(Hash.encrypt(password));
-        user.setPhone(password);
+        user.setPhone(phone);
         
         if (user.create() != null) {
             this.jLabel6.setText("注册成功");

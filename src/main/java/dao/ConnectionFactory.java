@@ -105,6 +105,7 @@ public class ConnectionFactory {
      * @return Boolean
      */
     public static Boolean queryReturnBoolean (String sql) {
+        Boolean status = false;
         try {
             Connection connection = null;
             PreparedStatement pstmt = null;
@@ -114,7 +115,7 @@ public class ConnectionFactory {
                 int rows = pstmt.executeUpdate();
                 
                 if (rows > 0) {
-                    return true;
+                    status = true;
                 }
             } finally {
                 ConnectionFactory.close(null, pstmt, connection);
@@ -123,7 +124,33 @@ public class ConnectionFactory {
             e.printStackTrace();
         }
 
-        return false;
+        return status;
+    }
+    
+    /**
+     * excute count sql
+     */
+    public static int queryReturnCount (String sql) {
+        int count = 0;
+        try {
+            Connection connection = null;
+            PreparedStatement pstmt = null;
+            try {
+                connection = ConnectionFactory.getConnection();
+                pstmt = connection.prepareStatement(sql);
+                ResultSet rs = pstmt.executeQuery();
+                
+                if(rs.next()) {
+                    count = rs.getInt(1);
+                }
+            } finally {
+                ConnectionFactory.close(rs, pstmt, connection);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return count;
     }
     
     /**

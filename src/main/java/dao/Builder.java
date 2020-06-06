@@ -200,6 +200,22 @@ public abstract class Builder<T> {
         return null;
     }
     
+    public int count() {
+        try {
+            String table = this.getTable();
+            String sql = "select count(*) from " + table ;
+
+            if (!this.whereArray.isEmpty()) {
+                sql += " where " + String.join(" ", this.whereArray);
+            }
+            
+            return ConnectionFactory.queryReturnCount(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return 0;
+    }
     /**
      * select all data from database
      * @return ArrayList

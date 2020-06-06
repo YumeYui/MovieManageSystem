@@ -5,27 +5,30 @@
  */
 package views.showing;
 
+import dao.RoomDao;
 import dao.ShowingDao;
+import dao.TicketDao;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import views.showing.ticket.TicketSelling;
 /**
  *
  * @author Aidandan
  */
 public class ShowingList extends javax.swing.JFrame {
     
-     private DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel(
+    private DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel(
             new Object[][]{},
             new String[]{
-                "场次序号", "放映时间", "电影ID", "放映厅ID"
+                "场次序号", "放映时间", "电影ID", "放映厅ID", "座位数", "剩余座位"
             }
     ) {
         Class[] types = new Class[]{
-            java.lang.Long.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class
+            java.lang.Long.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.Integer.class, java.lang.Integer.class
         };
         boolean[] canEdit = new boolean[]{
-            false, false, false, false
+            false, false, false, false, false, false
         };
 
         public Class getColumnClass(int columnIndex) {
@@ -48,7 +51,7 @@ public class ShowingList extends javax.swing.JFrame {
     
     public void fillTable() {
         this.tableModel.setRowCount(0);
-
+        
         String id = this.jTextField1.getText();
         String date = this.jTextField2.getText();
         String movie_id = this.jTextField3.getText();
@@ -75,14 +78,28 @@ public class ShowingList extends javax.swing.JFrame {
         this.showings = showingDao.get();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         for (ShowingDao showing : this.showings) {
+            RoomDao room = (RoomDao) new RoomDao().where("id", "=", showing.getRoom_id()).first();
+            
+            int totalSeatsCount = 0;
+            int freeSeatsCount = 0;
+            
+            if (room != null) {
+                totalSeatsCount = room.getSeats().intValue();
+                int ticketsCount = new TicketDao().where("showing_id", "=", showing.getId()).count();
+                freeSeatsCount = totalSeatsCount - ticketsCount;
+            }
+            
             Object[] row = {
                 showing.getId(),
                 sdf.format(showing.getDate()),
                 showing.getMovie_id(),
-                showing.getRoom_id()
+                showing.getRoom_id(),
+                totalSeatsCount,
+                freeSeatsCount,
             };
             this.tableModel.addRow(row);
         }
+        this.jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -108,6 +125,7 @@ public class ShowingList extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("放映场次列表");
@@ -150,11 +168,19 @@ public class ShowingList extends javax.swing.JFrame {
         });
 
         jTable1.setModel(this.tableModel);
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTable1);
 
         jLabel5.setForeground(new java.awt.Color(255, 0, 51));
         jLabel5.setText("         ");
         jLabel5.setToolTipText("");
+
+        jButton5.setText("售票");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -166,7 +192,7 @@ public class ShowingList extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,10 +203,10 @@ public class ShowingList extends javax.swing.JFrame {
                                     .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                                     .addComponent(jTextField3))
                                 .addGap(20, 20, 20))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
-                                .addComponent(jButton2)))
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton5)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,8 +218,10 @@ public class ShowingList extends javax.swing.JFrame {
                                     .addComponent(jTextField2)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton2)
+                                .addGap(18, 18, 18)
                                 .addComponent(jButton3)
-                                .addGap(97, 97, 97)
+                                .addGap(18, 18, 18)
                                 .addComponent(jButton4)))))
                 .addContainerGap())
         );
@@ -219,9 +247,11 @@ public class ShowingList extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton4)
-                        .addComponent(jButton3))
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                        .addComponent(jButton3)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1)
+                        .addComponent(jButton5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -254,7 +284,6 @@ public class ShowingList extends javax.swing.JFrame {
         this.jLabel5.setText("");
         int selected = this.jTable1.getSelectedRow();
         if (selected >= 0) {
-            
             ShowingDao showing = this.showings.get(selected);
             ShowingList _this = this;
             java.awt.EventQueue.invokeLater(new Runnable() {
@@ -283,6 +312,23 @@ public class ShowingList extends javax.swing.JFrame {
             this.jLabel5.setText("请先选择要删除的数据");
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        this.jLabel5.setText("");
+        int selected = this.jTable1.getSelectedRow();
+        if (selected >= 0) {
+            ShowingDao showing = this.showings.get(selected);
+            ShowingList _this = this;
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new TicketSelling(_this, showing).setVisible(true);
+                }
+            });
+        } else {
+            this.jLabel5.setText("请先选择要售票的场次");
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -325,6 +371,7 @@ public class ShowingList extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

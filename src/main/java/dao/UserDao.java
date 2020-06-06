@@ -33,6 +33,9 @@ public class UserDao extends Dao<UserDao> {
     @Column(type = "String")
     private String address;
     
+    @Column(type = "String")
+    private String role;
+    
     public UserDao () {
         super(table);
     }
@@ -84,14 +87,21 @@ public class UserDao extends Dao<UserDao> {
     public void setAddress(String address) {
         this.address = address;
     }
-    
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+            
     /**
      * check the password is equals with that in database
      * @param password
      * @return Boolean
      */
     public Boolean authorize(String password) {
-        // 加密两次，解决从数据库取出时 setPassword 再次加密问题
         String encrypt = Hash.encrypt(password);
         return encrypt.equals(this.getPassword());
     }

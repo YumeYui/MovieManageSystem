@@ -70,8 +70,8 @@ public class MovieEdit extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("电影编辑");
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
             }
         });
 
@@ -294,17 +294,14 @@ public class MovieEdit extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         dispose();
-        if (this.listFrame != null) {
-            this.listFrame.fillTable();
-        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
         if (this.listFrame != null) {
             this.listFrame.fillTable();
         }
-    }//GEN-LAST:event_formWindowClosing
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

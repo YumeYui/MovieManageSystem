@@ -164,7 +164,7 @@ public class Database {
             "`email` varchar(255) NOT NULL UNIQUE COMMENT '邮箱'," +
             "`password` varchar(255) NOT NULL COMMENT '密码'," +
             "`name` varchar(255) NOT NULL UNIQUE COMMENT '用户名'," +
-            "`phone` varchar(255) NOT NULL UNIQUE COMMENT '联系方式'," +
+            "`phone` varchar(255) NOT NULL DEFAULT '' COMMENT '联系方式'," +
             "`address` varchar(255) NOT NULL DEFAULT '' COMMENT '地址'," +
             "PRIMARY KEY (`id`)" +
         ") DEFAULT CHARSET=utf8;";

@@ -162,6 +162,7 @@ public class MovieList extends javax.swing.JFrame {
         });
 
         jTable1.setModel(this.tableModel);
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTable1);
 
         jLabel6.setForeground(new java.awt.Color(255, 0, 51));

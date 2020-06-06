@@ -63,6 +63,11 @@ public class RoomEdit extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("放映厅编辑");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setText("ID：");
 
@@ -248,9 +253,6 @@ public class RoomEdit extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         dispose();
-        if (this.listFrame != null) {
-            this.listFrame.fillTable();
-        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jFormattedTextField3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextField3FocusLost
@@ -262,6 +264,13 @@ public class RoomEdit extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.countSeats();
     }//GEN-LAST:event_jFormattedTextField2FocusLost
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        if (this.listFrame != null) {
+            this.listFrame.fillTable();
+        }
+    }//GEN-LAST:event_formWindowClosed
     
     private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
         // TODO add your handling code here:
