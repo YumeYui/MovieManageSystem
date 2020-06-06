@@ -129,6 +129,7 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("菜单");
         setBounds(new java.awt.Rectangle(0, 23, 300, 400));
         getContentPane().setLayout(new java.awt.GridLayout(0, 1, 8, 8));
 

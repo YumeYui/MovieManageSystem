@@ -112,6 +112,7 @@ public class UserList extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("用户列表");
 
         jLabel1.setText("ID：");
 
