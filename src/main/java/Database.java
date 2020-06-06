@@ -141,6 +141,7 @@ public class Database {
             "`name` varchar(255) NOT NULL UNIQUE COMMENT '用户名'," +
             "`phone` varchar(255) NOT NULL DEFAULT '' COMMENT '联系方式'," +
             "`address` varchar(255) NOT NULL DEFAULT '' COMMENT '地址'," +
+            "`role` varchar(255) NOT NULL DEFAULT 'Operator' COMMENT '角色'," +
             "PRIMARY KEY (`id`)" +
         ") DEFAULT CHARSET=utf8;";
     }
