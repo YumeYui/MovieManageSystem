@@ -285,6 +285,8 @@ public class RoomEdit extends javax.swing.JFrame {
             
             this.jLabel4.setText(String.valueOf(this.room.getId()));
             this.jTextField1.setText(this.room.getName());
+            this.jFormattedTextField2.setText(String.valueOf(this.room.getRows()));
+            this.jFormattedTextField3.setText(String.valueOf(this.room.getColumns()));
             this.jLabel8.setText(String.valueOf(this.room.getSeats()));
         }
     }

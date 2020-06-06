@@ -38,7 +38,7 @@ public class Menu extends javax.swing.JFrame {
         UserDao user = Global.user;
         if (user != null) {
             Container c = getContentPane();
-            setBounds(300, 200, 200, 300);
+            setBounds(300, 200, 260, 300);
             JButton profileButton = new JButton("个人信息");
             c.add(profileButton);
             

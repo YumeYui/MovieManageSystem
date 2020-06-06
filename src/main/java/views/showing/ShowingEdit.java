@@ -241,13 +241,14 @@ public class ShowingEdit extends javax.swing.JFrame {
         int m_i = Integer.valueOf(movie_id);
         int r_i = Integer.valueOf(room_id);
         
-        if (this.showing.getRoom_id().intValue() != r_i) {
-            ArrayList<TicketDao> soldTickets = new TicketDao().where("showing_id", "=", this.showing.getId()).get();
-            for (TicketDao soldTicket : soldTickets) {
-                soldTicket.delete();
+        if (this.showing != null ) {
+            if (this.showing.getRoom_id().intValue() != r_i) {
+                ArrayList<TicketDao> soldTickets = new TicketDao().where("showing_id", "=", this.showing.getId()).get();
+                for (TicketDao soldTicket : soldTickets) {
+                    soldTicket.delete();
+                }
             }
         }
-        
         
         showing.setDate(Timestamp.valueOf(date));
         showing.setMovie_id(m_i);
@@ -256,14 +257,14 @@ public class ShowingEdit extends javax.swing.JFrame {
         if (showing.save() != null) {
             if (isNew) {
                 this.jLabel5.setText(String.valueOf(showing.getId()));
-                this.jLabel6.setText("电影创建成功");
+                this.jLabel6.setText("电影场次创建成功");
             } else {
-                this.jLabel6.setText("电影更新成功");
+                this.jLabel6.setText("电影场次更新成功");
             }
             return;
         }
         
-        this.jLabel6.setText("电影更新失败");
+        this.jLabel6.setText("电影场次更新失败");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

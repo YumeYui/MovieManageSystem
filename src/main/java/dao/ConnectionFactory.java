@@ -23,7 +23,7 @@ public class ConnectionFactory {
 
     static {
         driver = "com.mysql.jdbc.Driver";
-        url = "jdbc:mysql://127.0.0.1:3306/movie?useSSL=false";
+        url = "jdbc:mysql://127.0.0.1:3306/movie?useSSL=false&useUnicode=true&characterEncoding=UTF-8";
         user = "root";
         password = "root";
     }
