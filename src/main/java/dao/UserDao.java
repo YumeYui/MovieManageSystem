@@ -95,7 +95,7 @@ public class UserDao extends Dao<UserDao> {
     public void setRole(String role) {
         this.role = role;
     }
-            
+
     /**
      * check the password is equals with that in database
      * @param password
@@ -104,5 +104,9 @@ public class UserDao extends Dao<UserDao> {
     public Boolean authorize(String password) {
         String encrypt = Hash.encrypt(password);
         return encrypt.equals(this.getPassword());
+    }
+    
+    public Boolean isRole(String role) {
+        return role.equals(this.getRole());
     }
 }

@@ -8,7 +8,7 @@ package views.user;
 import common.Global;
 import common.Validator;
 import dao.UserDao;
-import views.Demo;
+import views.Menu;
 
 /**
  *
@@ -156,7 +156,7 @@ public class Login extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Home().setVisible(true);
+                new Menu().setVisible(true);
             }
         });
     }//GEN-LAST:event_jButton1ActionPerformed

@@ -118,7 +118,7 @@ public class RoomList extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("放映厅列表");
 
         jLabel1.setText("放映厅ID:");

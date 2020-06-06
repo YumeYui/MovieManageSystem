@@ -81,6 +81,7 @@ public class UserList extends javax.swing.JFrame {
                 user.getName(),
                 user.getEmail(),
                 user.getPhone(),
+                user.getRole(),
             };
             this.tableModel.addRow(row);
         }
@@ -110,7 +111,7 @@ public class UserList extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("ID：");
 
@@ -127,7 +128,7 @@ public class UserList extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("重置密码");
+        jButton2.setText("修改");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -247,7 +248,7 @@ public class UserList extends javax.swing.JFrame {
             UserList _this = this;
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new ResetPassword(_this, user).setVisible(true);
+                    new UserEdit(_this, user).setVisible(true);
                 }
             });
         } else {
