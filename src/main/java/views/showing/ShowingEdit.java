@@ -8,7 +8,10 @@ package views.showing;
 import dao.MovieDao;
 import dao.RoomDao;
 import dao.ShowingDao;
+import dao.TicketDao;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import sun.security.krb5.internal.Ticket;
 
 /**
  *
@@ -235,8 +238,17 @@ public class ShowingEdit extends javax.swing.JFrame {
         
         ShowingDao showing = this.isNew ? new ShowingDao() : this.showing;
         
-        int m_i = Integer.valueOf(movie_id).intValue();
-        int r_i = Integer.valueOf(room_id).intValue();
+        int m_i = Integer.valueOf(movie_id);
+        int r_i = Integer.valueOf(room_id);
+        
+        if (this.showing.getRoom_id().intValue() != r_i) {
+            ArrayList<TicketDao> soldTickets = new TicketDao().where("showing_id", "=", this.showing.getId()).get();
+            for (TicketDao soldTicket : soldTickets) {
+                soldTicket.delete();
+            }
+        }
+        
+        
         showing.setDate(Timestamp.valueOf(date));
         showing.setMovie_id(m_i);
         showing.setRoom_id(r_i);

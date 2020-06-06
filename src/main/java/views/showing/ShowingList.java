@@ -5,9 +5,11 @@
  */
 package views.showing;
 
+import dao.MovieDao;
 import dao.RoomDao;
 import dao.ShowingDao;
 import dao.TicketDao;
+import java.sql.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -21,14 +23,14 @@ public class ShowingList extends javax.swing.JFrame {
     private DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel(
             new Object[][]{},
             new String[]{
-                "场次序号", "放映时间", "电影ID", "放映厅ID", "座位数", "剩余座位"
+                "场次序号", "放映时间", "电影ID", "电影名", "放映厅ID", "放映厅名", "座位数", "剩余座位"
             }
     ) {
         Class[] types = new Class[]{
-            java.lang.Long.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.Integer.class, java.lang.Integer.class
+            java.lang.Long.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
         };
         boolean[] canEdit = new boolean[]{
-            false, false, false, false, false, false
+            false, false, false, false, false, false, false, false
         };
 
         public Class getColumnClass(int columnIndex) {
@@ -40,6 +42,9 @@ public class ShowingList extends javax.swing.JFrame {
         }
     };
     private ArrayList<ShowingDao> showings;
+    private ArrayList<MovieDao> movies = new ArrayList<MovieDao>();
+    private ArrayList<RoomDao> rooms = new ArrayList<RoomDao>();
+    
     /**
      * Creates new form ShowingsList
      */
@@ -76,8 +81,11 @@ public class ShowingList extends javax.swing.JFrame {
         }
 
         this.showings = showingDao.get();
+        this.movies.clear();
+        this.rooms.clear();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         for (ShowingDao showing : this.showings) {
+            MovieDao movie = (MovieDao) new MovieDao().where("id", "=", showing.getMovie_id()).first();
             RoomDao room = (RoomDao) new RoomDao().where("id", "=", showing.getRoom_id()).first();
             
             int totalSeatsCount = 0;
@@ -89,17 +97,23 @@ public class ShowingList extends javax.swing.JFrame {
                 freeSeatsCount = totalSeatsCount - ticketsCount;
             }
             
+            movies.add(movie);
+            rooms.add(room);
+            
             Object[] row = {
                 showing.getId(),
                 sdf.format(showing.getDate()),
                 showing.getMovie_id(),
+                movie.getName(),
                 showing.getRoom_id(),
+                room.getName(),
                 totalSeatsCount,
                 freeSeatsCount,
             };
             this.tableModel.addRow(row);
         }
         this.jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
+        this.jTable1.getColumnModel().getColumn(3).setPreferredWidth(250);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -189,7 +203,7 @@ public class ShowingList extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 863, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -255,7 +269,7 @@ public class ShowingList extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -322,7 +336,7 @@ public class ShowingList extends javax.swing.JFrame {
             ShowingList _this = this;
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new TicketSelling(_this, showing).setVisible(true);
+                    new TicketSelling(_this, showing, movies.get(selected), rooms.get(selected)).setVisible(true);
                 }
             });
         } else {

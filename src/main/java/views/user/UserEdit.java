@@ -62,6 +62,11 @@ public class UserEdit extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("修改信息");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setForeground(new java.awt.Color(255, 0, 51));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -284,11 +289,6 @@ public class UserEdit extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         dispose();
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UserList().setVisible(true);
-            }
-        });
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -304,6 +304,13 @@ public class UserEdit extends javax.swing.JFrame {
             this.jLabel1.setText("重置密码失败！");
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        if (this.listFrame != null) {
+            this.listFrame.fillTable();
+        }
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

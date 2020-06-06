@@ -58,13 +58,13 @@ public class TicketSelling extends javax.swing.JFrame {
         initComponentsWithData();
     }
     
-    public TicketSelling(ShowingList listFrame, ShowingDao showing) {
+    public TicketSelling(ShowingList listFrame, ShowingDao showing, MovieDao movie, RoomDao room) {
         this.listFrame = listFrame;
         this.showing = showing;
-        
+        this.room = room;
+        this.movie = movie;
+            
         if (this.showing != null) {
-            this.room = (RoomDao) new RoomDao().where("id", "=", this.showing.getRoom_id()).first();
-            this.movie = (MovieDao) new MovieDao().where("id", "=", this.showing.getMovie_id()).first();
             this.soldTickets = new TicketDao().where("showing_id", "=", this.showing.getId()).get();
         }
         
