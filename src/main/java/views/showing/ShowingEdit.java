@@ -11,7 +11,6 @@ import dao.ShowingDao;
 import dao.TicketDao;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import sun.security.krb5.internal.Ticket;
 
 /**
  *

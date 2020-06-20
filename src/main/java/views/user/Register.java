@@ -269,6 +269,8 @@ public class Register extends javax.swing.JFrame {
                     new Login().setVisible(true);
                 }
             });
+        } else {
+            this.jLabel6.setText("注册失败，请联系管理员。");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

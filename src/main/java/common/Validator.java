@@ -59,6 +59,5 @@ public class Validator {
                 + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";
 
         return str.matches(regex);
-
     }
 }
